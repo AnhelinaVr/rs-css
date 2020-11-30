@@ -8,8 +8,31 @@
 </head>
 
 <body>
-    <header></header>
-
+    <nav class="menu">
+        <div class="level-header">
+            <h1 class="level-text"></h1>
+            <div class="level-nav">
+                <a class="previous" href="#"></a>
+                <a class="next" href="#"></a>
+            </div>
+            <div class="hamburger-menu">
+                <input id="menu__toggle" class="menu__toggle" type="checkbox" />
+                <label class="menu__btn" for="menu__toggle">
+            <span></span>
+                </label>
+                <ul class="menu__box">
+                </ul>
+            </div>
+        </div>
+        <div class="display-help">
+            <h3 class="selector-name"></h3>
+            <h2 class="title"></h2>
+            <h3 class="syntax"></h3>
+            <div class="hint"></div>
+            <h4 class="examples-title">Examples</h4>
+            <div class="examples"></div>
+        </div>
+    </nav>
     <main>
         <section class="space">
 
@@ -18,12 +41,7 @@
         <section class="code">
             <div class="css-editor">
                 <h3 class="code-header">CSS Editor</h3>
-                <div class="code-window code-window--css">
-                    <div class="line-numbers"></div>
-                    <div class="markup">
-                        <input type="text" placeholder="Type in a CSS selector">
-                    </div>
-                </div>
+                <input type="text" placeholder="Type in a CSS selector" class="answer">
             </div>
             <div class="html-view">
                 <h3 class="code-header">HTML Viewer</h3>
@@ -33,12 +51,7 @@
                 </div>
             </div>
         </section>
-
-        <aside class="menu">
-
-        </aside>
     </main>
-    <script src="./js/script.js"></script>
 </body>
 
 </html>
