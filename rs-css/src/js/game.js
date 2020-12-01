@@ -7,14 +7,16 @@ class Game {
 
     createLevel(lvlNumber) {
         const level = levels[lvlNumber];
-        this.containers.section.innerHTML = level.spaceMarkup;
-        this.containers.htmlMarkup.innerText = level.spaceMarkup;
+        this.containers.table.innerHTML = level.htmlMarkup;
+        this.containers.doThis.innerText = level.doThis;
+        this.containers.htmlMarkup.innerText = level.htmlMarkup;
         this.containers.lvlHeader.innerHTML = `Level ${+lvlNumber + 1} of ${levels.length}`;
-        this.containers.selectorName.innerHTML = level.selectorName;
-        this.containers.lvlTitle.innerHTML = level.helpTitle;
+        this.containers.title.innerHTML = level.title;
+        this.containers.comment.innerHTML = level.comment;
         this.containers.syntax.innerHTML = level.syntax;
-        this.containers.hint.innerHTML = level.help;
+        this.containers.hint.innerHTML = level.hint;
         this.containers.examples.innerHTML = level.examples;
+        this.containers.notes.innerHTML = level.notes;
         this.containers.menu.childNodes.forEach(item => {
             item.classList.remove('active');
         });
@@ -28,10 +30,18 @@ class Game {
             let li = document.createElement('li');
             li.classList.add('menu__item')
             li.innerHTML = `${i + 1} - ${levels[i].syntax}`;
-
             menu.appendChild(li);
         }
     }
+
+    checkAnswer(lvlNumber) {
+        const level = levels[lvlNumber];
+        const answer = this.containers.cssEditor.value.replace(/\s+/g, ' ').trim();
+        if (answer === level.answer) alert('OK!')
+            //|| document.querySelectorAll(level.answer) === document.querySelectorAll('то что надо')
+        else alert('NOT OK!');
+    }
+
 }
 
 export default Game;

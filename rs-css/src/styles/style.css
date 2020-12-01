@@ -10,9 +10,29 @@ main {
     max-width: calc(100% - 350px);
 }
 
-.space {
-    background-color: rgb(255, 149, 149);
+.game {
+    background-image: url('../../assets/bg.jpeg');
+    background-size: 100% 100%;
     height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0 40px;
+    z-index: -2;
+}
+
+.table {
+    display: flex;
+    justify-content: center;
+}
+
+.do-this {
+    color: white;
+    padding: 0 10px;
+    text-shadow: 1px 1px 3px black;
+    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.45);
+    background: rgba(0, 0, 0, 0.4);
 }
 
 .code {
@@ -27,9 +47,12 @@ main {
 }
 
 .css-editor,
-.answer,
 .html-view {
     width: 90%;
+}
+
+.answer {
+    width: 100%;
 }
 
 .code h3 {
@@ -39,11 +62,25 @@ main {
 .menu {
     background-color: rgb(163, 237, 255);
     max-width: 350px;
+    width: 100%;
     position: fixed;
     top: 0;
     right: 0;
     height: 100vh;
     padding: 15px;
+}
+
+.reset-progress {
+    position: absolute;
+    bottom: 15px;
+    right: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.reset-button {
+    width: 80%;
+    cursor: pointer;
 }
 
 .line-numbers {
@@ -64,6 +101,7 @@ main {
     top: 0;
     right: 0;
     margin-left: 50px;
+    cursor: pointer;
 }
 
 .previous {
@@ -97,12 +135,6 @@ main {
     margin-left: auto;
 }
 
-.logo_burger {
-    position: absolute;
-    right: 105px;
-    z-index: 900;
-}
-
 
 /* скрываем чекбокс */
 
@@ -124,7 +156,7 @@ main {
     width: 30px;
     height: 26px;
     cursor: pointer;
-    z-index: 3;
+    z-index: 10;
 }
 
 
@@ -166,6 +198,7 @@ main {
     padding: 60px 20px;
     list-style: none;
     background-color: #345;
+    z-index: 9;
 }
 
 
@@ -175,7 +208,7 @@ main {
     display: block;
     text-decoration: none;
     color: #f4f;
-    font-size: 20px;
+    font-size: 16px;
     line-height: 160%;
 }
 
@@ -209,4 +242,48 @@ main {
 
 .menu__item {
     transition-duration: 0.3s;
+}
+
+
+/* --------------------------- */
+
+gift {
+    display: block;
+    position: relative;
+    width: 105px;
+    height: 70px;
+    background-image: url('../../assets/giftRedOpen.png');
+    background-size: cover;
+}
+
+.blue {
+    background-image: url('../../assets/giftBlueOpen.png');
+}
+
+bear {
+    position: absolute;
+    float: left;
+    display: block;
+    width: 70px;
+    height: 70px;
+    background-image: url('../../assets/bear.png');
+    background-size: cover;
+    z-index: -1;
+}
+
+gift bear {
+    bottom: 20px;
+}
+
+tag {
+    background: rgba(0, 0, 0, .1);
+    padding: 2px;
+}
+
+tag::before {
+    content: "<";
+}
+
+tag::after {
+    content: ">";
 }
