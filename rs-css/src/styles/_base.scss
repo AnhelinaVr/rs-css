@@ -70,22 +70,3 @@ a {
         transform: translate(1px, -2px) rotate(-1deg);
     }
 }
-
-@media only screen and (max-width:1024px) {
-    main {
-        max-width: 100%;
-    }
-    .menu {
-        position: relative;
-        height: auto;
-        max-width: 100%;
-    }
-    .reset-progress {
-        display: flex;
-        justify-content: flex-end;
-        top: 10px;
-        bottom: auto;
-        right: 150px;
-        width: 150px;
-    }
-}
