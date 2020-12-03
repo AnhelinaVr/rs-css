@@ -10,7 +10,8 @@ class Game {
         this.containers.table.innerHTML = level.htmlMarkup;
         this.containers.doThis.innerText = level.doThis;
         this.containers.htmlMarkup.innerText = level.htmlMarkup;
-        this.containers.lvlHeader.innerHTML = `Level ${+lvlNumber + 1} of ${levels.length}`;
+        this.containers.lvlHeader.innerHTML =
+            `Level ${+lvlNumber + 1} of ${levels.length}`;
         this.containers.title.innerHTML = level.title;
         this.containers.comment.innerHTML = level.comment;
         this.containers.syntax.innerHTML = level.syntax;
@@ -21,6 +22,15 @@ class Game {
             item.classList.remove('active');
         });
         this.containers.menu.children[lvlNumber].classList.add('active');
+        this.highlightGoalItems(level);
+    }
+
+    highlightGoalItems(level) {
+        this.containers.table
+            .querySelectorAll(level.answer)
+            .forEach((item) => {
+                item.classList.add('active');
+            });
     }
 
     createMenu() {
@@ -36,12 +46,47 @@ class Game {
 
     checkAnswer(lvlNumber) {
         const level = levels[lvlNumber];
-        const answer = this.containers.cssEditor.value.replace(/\s+/g, ' ').trim();
-        if (answer === level.answer) alert('OK!')
-            //|| document.querySelectorAll(level.answer) === document.querySelectorAll('то что надо')
-        else alert('NOT OK!');
-    }
+        const answer = this.containers.cssEditor.value
+            .replace(/\s+/g, ' ')
+            .trim();
+        const cssInput = this.containers.cssEditor;
+        let isCorrect;
 
+        try {
+            isCorrect = nodeListsAreEqual(
+                this.containers.table
+                .querySelectorAll(answer),
+                this.containers.table
+                .querySelectorAll(level.answer)
+            )
+        } catch (error) {
+            isCorrect = false;
+        }
+
+        if (!isCorrect) {
+            cssInput.classList.add('shake');
+            cssInput.addEventListener('animationend', () => {
+                cssInput.classList.remove('shake');
+            });
+        } else {
+            lvlNumber = +lvlNumber + 1;
+            cssInput.classList.add('correct');
+            cssInput.addEventListener('transitionend', () => {
+                cssInput.classList.remove('correct');
+                cssInput.value = '';
+                this.createLevel(lvlNumber);
+            });
+        }
+        return lvlNumber;
+    }
+}
+
+function nodeListsAreEqual(list1, list2) {
+    if (list1.length !== list2.length) {
+        return false;
+    }
+    return Array.from(list1)
+        .every((node, index) => node === list2[index]);
 }
 
 export default Game;

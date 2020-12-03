@@ -1,0 +1,177 @@
+main {
+    display: flex;
+    flex-direction: column;
+    max-width: calc(100% - 350px);
+}
+
+.game {
+    background-image: url('../../assets/bg.jpg');
+    background-size: 100% 100%;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0 40px;
+    z-index: -2;
+}
+
+.code {
+    height: 50vh;
+    background-color: rgb(253, 255, 140);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    h3 {
+        text-align: center;
+    }
+}
+
+.code-window {
+    display: flex;
+}
+
+.css-editor,
+.html-view {
+    width: 90%;
+}
+
+.answer {
+    width: 100%;
+}
+
+.menu {
+    background-color: rgb(163, 237, 255);
+    max-width: 350px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    padding: 15px;
+}
+
+.reset-progress {
+    position: absolute;
+    bottom: 15px;
+    right: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.do-this {
+    color: white;
+    padding: 0 10px;
+    text-shadow: 1px 1px 3px black;
+    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.45);
+    background: rgba(0, 0, 0, 0.4);
+    text-align: center;
+}
+
+.line-numbers {
+    width: 30px;
+}
+
+.level-title,
+.comment,
+.syntax,
+.hint {
+    margin-top: 15px;
+}
+
+.comment {
+    font-size: 16px;
+    line-height: 110%;
+}
+
+.syntax {
+    background: floralwhite;
+    display: inline-block;
+    padding: 3px 5px;
+}
+
+.hint {
+    line-height: 130%;
+}
+
+.examples-title {
+    margin: 7px 0;
+}
+
+hr {
+    margin: 3px 0;
+    border-top: 2px dashed black;
+}
+
+.notes {
+    font-size: 13px;
+    margin-top: 20px;
+}
+
+.level {
+    &-nav {
+        position: absolute;
+        right: 95px;
+        top: 5px;
+        cursor: pointer;
+    }
+    &-text {
+        display: inline-block;
+    }
+    &-header {
+        display: flex;
+        position: relative;
+    }
+}
+
+.previous,
+.next {
+    content: "";
+    height: 18px;
+    width: 18px;
+    position: absolute;
+    border: solid 2px white;
+    border-width: 2px 2px 0 0;
+    transform-origin: center center;
+    transition: all 0.15s linear;
+}
+
+.previous {
+    transform: rotate(-135deg);
+    transition: all 0.15s linear;
+    right: 2px;
+    &:hover {
+        transform: rotate(-135deg) scale(1.2);
+    }
+}
+
+.next {
+    transform: rotate(45deg);
+    &:hover {
+        transform: rotate(45deg) scale(1.2);
+    }
+}
+
+tag {
+    background: rgba(0, 0, 0, .1);
+    padding: 2px;
+}
+
+tag::before {
+    content: "<";
+}
+
+tag::after {
+    content: ">";
+}
+
+.correct {
+    transition: all 0.5s ease;
+    transform: scale(1.2);
+    background: green;
+}
+
+.shake {
+    animation: shake 0.5s linear;
+    background: red;
+}

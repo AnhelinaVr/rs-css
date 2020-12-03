@@ -37,7 +37,7 @@ function createLevel(lvlNumber) {
 createLevel();
 
 // "Line numbers" like in IDE
-for (let i = 1; i <= 20; i += 1) {
+for (let i = 1; i <= 10; i += 1) {
     document.querySelector('.line-numbers').innerHTML += `${i}<br>`;
 }
 
@@ -73,6 +73,8 @@ document.querySelector('.reset-button').addEventListener('click', () => {
 // Check answer
 document.addEventListener('keypress', function(event) {
     if (event.keyCode === 13) {
-        game.checkAnswer(getLevelNumber());
+        setLevelNumber(
+            game.checkAnswer(getLevelNumber())
+        );
     }
 });
