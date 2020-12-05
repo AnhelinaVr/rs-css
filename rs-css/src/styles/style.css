@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+@import url("https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css");
 * {
   margin: 0;
   padding: 0;
@@ -96,19 +97,23 @@ main {
 }
 .code h3 {
   text-align: center;
+  flex-basis: 100%;
 }
 
 .code-window {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .css-editor,
 .html-view {
   width: 90%;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .answer {
-  width: 100%;
+  flex-basis: 80%;
 }
 
 .menu {
@@ -141,6 +146,8 @@ main {
 
 .line-numbers {
   width: 30px;
+  line-height: 130%;
+  font-size: 13px;
 }
 
 .level-title,
@@ -237,12 +244,12 @@ tag::after {
 .correct {
   transition: all 0.5s ease;
   transform: scale(1.2);
-  background: green;
+  background: green !important;
 }
 
 .shake {
   animation: shake 0.5s linear;
-  background: red;
+  background: red !important;
 }
 
 @media only screen and (max-width: 1024px) {
@@ -263,6 +270,10 @@ tag::after {
     bottom: auto;
     right: 150px;
     width: 150px;
+  }
+
+  .reset-button {
+    width: 100% !important;
   }
 }
 .hamburger-menu {
@@ -350,14 +361,37 @@ tag::after {
   transition-duration: 0.3s;
 }
 
-.reset-button {
-  width: 70%;
+.button {
   border: 2px solid #575757;
   padding: 5px;
   background: white;
 }
-.reset-button:hover {
+.button.reset-button {
+  width: 70%;
+}
+.button.reset-button:hover {
+  background-color: red;
   box-shadow: 0px 0px 20px 0px red;
+}
+.button.enter-button {
+  min-width: 30px;
+  flex-basis: 10%;
+}
+.button.enter-button:hover {
+  background-color: green;
+  box-shadow: 0px 0px 10px 0px green;
+}
+.button.help-button {
+  min-width: 30px;
+  flex-basis: 10%;
+}
+.button.help-button:hover {
+  background-color: orange;
+  box-shadow: 0px 0px 10px 0px red;
+}
+
+i {
+  margin-right: 5px;
 }
 
 .table {

@@ -1,8 +1,18 @@
 import levels from './levels';
+import Codemirror from 'codemirror/lib/codemirror';
+import 'codemirror/mode/css/css';
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/addon/display/placeholder';
 
 class Game {
     constructor(containers) {
         this.containers = containers;
+        this.editor = Codemirror
+            .fromTextArea(this.containers.cssEditor, {
+                autofocus: true,
+            });
+        this.containers.cssEditor = document.querySelector('.CodeMirror');
+
     }
 
     createLevel(lvlNumber) {
@@ -10,6 +20,9 @@ class Game {
         this.containers.table.innerHTML = level.htmlMarkup;
         this.containers.doThis.innerText = level.doThis;
         this.containers.htmlMarkup.innerText = level.htmlMarkup;
+        hljs.highlightBlock(this.containers.htmlMarkup);
+        this.editor.setSize(null, 30);
+        this.containers.cssEditor.classList.add('answer');
         this.containers.lvlHeader.innerHTML =
             `Level ${+lvlNumber + 1} of ${levels.length}`;
         this.containers.title.innerHTML = level.title;
@@ -23,6 +36,18 @@ class Game {
         });
         this.containers.menu.children[lvlNumber].classList.add('active');
         this.highlightGoalItems(level);
+    }
+
+    nextLevel(lvlNumber) {
+        if (lvlNumber < levels.length - 1) lvlNumber++;
+        this.createLevel(lvlNumber);
+        return lvlNumber;
+    }
+
+    previousLevel(lvlNumber) {
+        if (lvlNumber > 0) lvlNumber--;
+        this.createLevel(lvlNumber);
+        return lvlNumber;
     }
 
     highlightGoalItems(level) {
@@ -46,7 +71,7 @@ class Game {
 
     checkAnswer(lvlNumber) {
         const level = levels[lvlNumber];
-        const answer = this.containers.cssEditor.value
+        const answer = this.editor.getValue()
             .replace(/\s+/g, ' ')
             .trim();
         const cssInput = this.containers.cssEditor;
@@ -69,15 +94,33 @@ class Game {
                 cssInput.classList.remove('shake');
             });
         } else {
-            lvlNumber = +lvlNumber + 1;
+            lvlNumber = this.nextLevel(lvlNumber);
             cssInput.classList.add('correct');
             cssInput.addEventListener('transitionend', () => {
                 cssInput.classList.remove('correct');
-                cssInput.value = '';
-                this.createLevel(lvlNumber);
+                this.editor.setValue('');
             });
         }
         return lvlNumber;
+    }
+
+    showAnswer(lvlNumber) {
+        const answer = levels[lvlNumber].answer;
+        let i = 0;
+        let cssCode = '';
+        const cssEditor = this.editor;
+        cssEditor.setValue('sssss');
+        cssEditor.setValue('aaaaaa');
+        typeWriter(50);
+
+        function typeWriter(speed = 100) {
+            if (i < answer.length) {
+                cssCode += answer.charAt(i);
+                cssEditor.setValue(cssCode);
+                i++;
+                setTimeout(typeWriter, speed);
+            }
+        }
     }
 }
 

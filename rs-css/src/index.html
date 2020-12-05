@@ -5,6 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RS CSS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.9/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.9/highlight.min.js"></script>
+
+    <script>
+        hljs.initHighlightingOnLoad();
+    </script>
 </head>
 
 <body>
@@ -34,7 +41,7 @@
             <div class="notes"></div>
         </div>
         <div class="reset-progress">
-            <button class="reset-button">Reset Progress</button>
+            <button class="button reset-button">Reset Progress</button>
         </div>
     </nav>
     <main>
@@ -46,7 +53,9 @@
         <section class="code">
             <div class="css-editor">
                 <h3 class="code-header">CSS Editor</h3>
-                <input type="text" placeholder="Type in a CSS selector" class="answer">
+                <textarea placeholder="Type in a CSS selector" class="answer" rows="1"></textarea>
+                <button class="button enter-button"><i class="fa fa-check"></i>Enter</button>
+                <button class="button help-button"><i class="fa fa-question"></i>Help</button>
             </div>
             <div class="html-view">
                 <h3 class="code-header">HTML Viewer</h3>

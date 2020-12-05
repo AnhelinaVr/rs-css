@@ -85,14 +85,37 @@
     transition-duration: 0.3s;
 }
 
-.reset-button {
-    width: 70%;
+.button {
     border: 2px solid rgb(87, 87, 87);
     padding: 5px;
     background: rgb(255, 255, 255);
-    &:hover {
-        box-shadow: 0px 0px 20px 0px red;
+    &.reset-button {
+        width: 70%;
+        &:hover {
+            background-color: red;
+            box-shadow: 0px 0px 20px 0px red;
+        }
     }
+    &.enter-button {
+        min-width: 30px;
+        flex-basis: 10%;
+        &:hover {
+            background-color: green;
+            box-shadow: 0px 0px 10px 0px green;
+        }
+    }
+    &.help-button {
+        min-width: 30px;
+        flex-basis: 10%;
+        &:hover {
+            background-color: orange;
+            box-shadow: 0px 0px 10px 0px red;
+        }
+    }
+}
+
+i {
+    margin-right: 5px;
 }
 
 // Game elements

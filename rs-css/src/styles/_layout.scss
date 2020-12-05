@@ -24,20 +24,24 @@ main {
     align-items: center;
     h3 {
         text-align: center;
+        flex-basis: 100%;
     }
 }
 
 .code-window {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .css-editor,
 .html-view {
     width: 90%;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .answer {
-    width: 100%;
+    flex-basis: 80%;
 }
 
 .menu {
@@ -70,6 +74,8 @@ main {
 
 .line-numbers {
     width: 30px;
+    line-height: 130%;
+    font-size: 13px;
 }
 
 .level-title,
@@ -168,12 +174,12 @@ tag::after {
 .correct {
     transition: all 0.5s ease;
     transform: scale(1.2);
-    background: green;
+    background: green !important;
 }
 
 .shake {
     animation: shake 0.5s linear;
-    background: red;
+    background: red !important;
 }
 
 @media only screen and (max-width:1024px) {
@@ -192,5 +198,8 @@ tag::after {
         bottom: auto;
         right: 150px;
         width: 150px;
+    }
+    .reset-button {
+        width: 100% !important;
     }
 }

@@ -1,6 +1,5 @@
 import '../styles/style.css';
 import Game from './game';
-import levels from './levels';
 
 const containers = {
     table: document.querySelector('.table'),
@@ -36,45 +35,59 @@ function createLevel(lvlNumber) {
 
 createLevel();
 
-// "Line numbers" like in IDE
-for (let i = 1; i <= 10; i += 1) {
-    document.querySelector('.line-numbers').innerHTML += `${i}<br>`;
-}
-
 // Arrows
-document.querySelector('.level-nav').addEventListener('click', (e) => {
-    let lvlNumber = getLevelNumber();
-    if (e.target.classList.contains('next')) {
-        if (lvlNumber < levels.length - 1) lvlNumber++;
-    } else if (e.target.classList.contains('previous')) {
-        if (lvlNumber > 0) lvlNumber--;
-    }
-    setLevelNumber(lvlNumber);
-    createLevel(lvlNumber);
-});
+document.querySelector('.level-nav')
+    .addEventListener('click', (e) => {
+        if (e.target.classList.contains('next')) {
+            setLevelNumber(
+                game.nextLevel(getLevelNumber())
+            );
+        } else if (e.target.classList.contains('previous')) {
+            setLevelNumber(
+                game.previousLevel(getLevelNumber())
+            );
+        }
+    });
 
 // Change level if menu item clicked
-document.querySelector('.menu__box').childNodes.forEach((item, index) => {
-    item.addEventListener('click', () => {
-        setLevelNumber(index);
-        createLevel(index);
-        document.getElementById('menu__toggle').checked = false;
+document.querySelector('.menu__box').childNodes
+    .forEach((item, index) => {
+        item.addEventListener('click', () => {
+            setLevelNumber(index);
+            createLevel(index);
+            document.getElementById('menu__toggle').checked = false;
+        });
     });
-});
 
 // Reset progress
-document.querySelector('.reset-button').addEventListener('click', () => {
-    if (confirm('Are you sure?')) {
-        localStorage.clear();
-        createLevel();
+document.querySelector('.reset-button')
+    .addEventListener('click', () => {
+        if (confirm('Are you sure?')) {
+            localStorage.clear();
+            createLevel();
+        }
+    });
+
+// Check answer
+
+function checkAnswer(lvlNumber) {
+    setLevelNumber(
+        game.checkAnswer(lvlNumber)
+    );
+}
+document.querySelector('.enter-button')
+    .addEventListener('click', () => {
+        checkAnswer(getLevelNumber());
+    });
+document.addEventListener('keypress', function(event) {
+    if (event.keyCode === 13) {
+        checkAnswer(getLevelNumber());
     }
 });
 
-// Check answer
-document.addEventListener('keypress', function(event) {
-    if (event.keyCode === 13) {
-        setLevelNumber(
-            game.checkAnswer(getLevelNumber())
-        );
-    }
-});
+// Show answer (help)
+
+document.querySelector('.help-button')
+    .addEventListener('click', () => {
+        game.showAnswer(getLevelNumber());
+    });
