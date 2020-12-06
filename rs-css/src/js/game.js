@@ -116,11 +116,12 @@ class Game {
                 cssInput.classList.remove('shake');
             });
         } else {
-            if (!this.statistics[lvlNumber])
+            if (!this.statistics[lvlNumber]) {
                 this.containers.menu.childNodes[lvlNumber]
-                .querySelector('.fa')
-                .classList.add('done');
-            this.addToStatistics(lvlNumber)
+                    .querySelector('.fa')
+                    .classList.add('done');
+                this.addToStatistics(lvlNumber)
+            }
             lvlNumber = this.nextLevel(lvlNumber);
             cssInput.classList.add('correct');
             cssInput.addEventListener('transitionend', () => {

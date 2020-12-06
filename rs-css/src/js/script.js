@@ -1,22 +1,6 @@
 import '../styles/style.css';
+import { containers, statistics } from './constants'
 import Game from './game';
-
-const containers = {
-    table: document.querySelector('.table'),
-    doThis: document.querySelector('.do-this'),
-    htmlMarkup: document.querySelector('.markup'),
-    cssEditor: document.querySelector('.answer'),
-    lvlHeader: document.querySelector('.level-current'),
-    title: document.querySelector('.level-title'),
-    comment: document.querySelector('.comment'),
-    syntax: document.querySelector('.syntax'),
-    hint: document.querySelector('.hint'),
-    examples: document.querySelector('.examples'),
-    notes: document.querySelector('.notes'),
-    menu: document.querySelector('.menu__box'),
-};
-
-const statistics = {};
 
 function getLevelNumber() {
     return localStorage.getItem('level') || 0;
@@ -27,7 +11,13 @@ function setLevelNumber(number) {
 }
 
 function getStatistics() {
-    return JSON.parse(localStorage.getItem('helped')) || '';
+    return JSON.parse(localStorage.getItem('helped')) || statistics;
+}
+
+function clearObject(obj) {
+    for (const prop of Object.getOwnPropertyNames(obj)) {
+        delete obj[prop];
+    }
 }
 
 const game = new Game(containers, getStatistics());
@@ -54,20 +44,36 @@ document.querySelector('.level-nav')
     });
 
 // Change level if menu item clicked
-document.querySelector('.menu__box').childNodes
-    .forEach((item, index) => {
-        item.addEventListener('click', () => {
-            setLevelNumber(index);
-            createLevel(index);
-            document.getElementById('menu__toggle').checked = false;
-        });
-    });
+
+// document.querySelector('.menu__box').childNodes
+//     .forEach((item, index) => {
+//             item.addEventListener('click', () => {
+//                 setLevelNumber(index);
+//                 createLevel(index);
+//                 document.getElementById('menu__toggle').checked = false;
+//             });
+
+containers.menu.addEventListener('click', (event) => {
+    if (event.target.classList.contains('menu__item')) {
+        const index = Array.from(containers.menu.childNodes)
+            .findIndex((item) => {
+                return item === event.target
+            });
+        setLevelNumber(index);
+        createLevel(index);
+        document.getElementById('menu__toggle').checked = false;
+
+    }
+});
 
 // Reset progress
 document.querySelector('.reset-button')
     .addEventListener('click', () => {
         if (window.confirm('Are you sure?')) {
             localStorage.clear();
+            clearObject(statistics);
+            game.statistics = statistics;
+            game.createMenu();
             createLevel();
         }
     });
