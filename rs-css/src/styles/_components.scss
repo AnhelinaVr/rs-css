@@ -56,7 +56,7 @@
 .menu__item {
     display: block;
     text-decoration: none;
-    color: #f4f;
+    color: rgb(205, 255, 68);
     font-size: 16px;
     line-height: 160%;
     &.active {
@@ -98,7 +98,7 @@
     }
     &.enter-button {
         min-width: 30px;
-        flex-basis: 10%;
+        flex-basis: 15%;
         &:hover {
             background-color: green;
             box-shadow: 0px 0px 10px 0px green;
@@ -106,7 +106,7 @@
     }
     &.help-button {
         min-width: 30px;
-        flex-basis: 10%;
+        flex-basis: 15%;
         &:hover {
             background-color: orange;
             box-shadow: 0px 0px 10px 0px red;
@@ -116,6 +116,14 @@
 
 i {
     margin-right: 5px;
+    opacity: 0.8;
+    color: gray;
+    &.done {
+        color: green;
+    }
+    &.helped {
+        color: orange;
+    }
 }
 
 // Game elements
@@ -125,6 +133,10 @@ i {
     align-items: flex-end;
     .active {
         animation: pulsate 0.5s ease-in-out infinite both;
+    }
+    h2 {
+        color: white;
+        text-align: center;
     }
 }
 
@@ -137,6 +149,9 @@ bear {
     position: relative;
     background-size: cover;
     background-repeat: no-repeat;
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 .small {
@@ -157,6 +172,15 @@ gift {
     }
     &#fancy {
         background-image: url('../../assets/giftRedOpenFancy.png');
+    }
+    &#fancy[for="Mum"] {
+        background-image: url('../../assets/giftRedOpenFancyMum.png');
+    }
+    &[for="Ann"] {
+        background-image: url('../../assets/giftBlueOpenAnn.png');
+    }
+    &[for="Joe"] {
+        background-image: url('../../assets/giftRedOpenJoe.png');
     }
     car {
         right: 18px;
