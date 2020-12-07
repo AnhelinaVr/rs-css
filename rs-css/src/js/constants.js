@@ -1,5 +1,6 @@
 export const containers = {
     table: document.querySelector('.table'),
+    tooltips: document.querySelector('.tooltips'),
     doThis: document.querySelector('.do-this'),
     htmlMarkup: document.querySelector('.markup'),
     cssEditor: document.querySelector('.answer'),
@@ -11,6 +12,7 @@ export const containers = {
     examples: document.querySelector('.examples'),
     notes: document.querySelector('.notes'),
     menu: document.querySelector('.menu__box'),
+    progressBar: document.querySelector('.progress'),
 };
 
 export const statistics = {};

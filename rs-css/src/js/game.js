@@ -1,4 +1,5 @@
 import Codemirror from 'codemirror/lib/codemirror';
+import hljs from 'highlight.js';
 import levels from './levels';
 import 'codemirror/mode/css/css';
 import 'codemirror/lib/codemirror.css';
@@ -14,6 +15,7 @@ class Game {
     constructor(containers, statistics) {
         this.containers = containers;
         this.statistics = statistics;
+        // Codemirror to dynamic highlighting CSS
         this.editor = Codemirror
             .fromTextArea(this.containers.cssEditor, {
                 autofocus: true,
@@ -23,11 +25,12 @@ class Game {
 
     createLevel(lvlNumber) {
         const level = levels[+lvlNumber];
-        this.containers.table.innerHTML = level.htmlMarkup;
+        this.createGameElements(level);
         this.containers.doThis.innerText = level.doThis;
-        this.containers.htmlMarkup.innerText = level.htmlMarkup;
+        // highlight.js to highlight HTML
         hljs.highlightBlock(this.containers.htmlMarkup);
         this.editor.setSize(null, 30);
+        this.editor.setValue('');
         this.containers.cssEditor.classList.add('answer');
         this.containers.lvlHeader.innerHTML = `Level ${+lvlNumber + 1} of ${levels.length}`;
         this.containers.title.innerHTML = level.title;
@@ -39,22 +42,96 @@ class Game {
         this.containers.menu.childNodes.forEach((item) => {
             item.classList.remove('active');
         });
-        this.containers.menu.children[lvlNumber].classList.add('active');
+        this.containers.menu.children[lvlNumber]
+            .classList.add('active');
         this.highlightGoalItems(level);
+        this.progressBar(lvlNumber);
+    }
+
+    createGameElements(level) {
+        this.containers.htmlMarkup.innerHTML = '';
+        this.containers.table.innerHTML = '';
+        this.containers.tooltips.innerHTML = '';
+        for (const item of level.code) {
+            const parent = document.createElement(item.tag);
+            if (item.class !== null) parent.classList.add(item.class);
+            if (item.id) parent.id = item.id;
+            if (item.for) parent.dataset.for = item.for;
+            if (item.child !== null) {
+                const child = document.createElement(item.child.tag);
+                parent.appendChild(child);
+            }
+            this.containers.table.appendChild(parent);
+        }
+        const parents = Array.from(this.containers.table.childNodes);
+        let mark = '';
+        for (const item of parents) {
+            mark += `${item.outerHTML}\n`;
+        }
+        // Add elements into HTML container
+        for (const iterator of mark.split('\n')) {
+            const span = document.createElement('span');
+            this.containers.htmlMarkup.appendChild(span);
+            span.innerText += `${iterator}\n`;
+        }
+        // To separate the elements to further highlight when you hover
+        setTimeout(() => {
+            const nodes = Array
+                .from(this.containers.htmlMarkup.childNodes);
+            for (const [key, value] of parents.entries()) {
+                const tooltip = document.createElement('span');
+                tooltip.innerText += nodes[key].innerText;
+                tooltip.classList.add('tooltiptext');
+                this.containers.tooltips.appendChild(tooltip);
+                value.addEventListener('mouseover', () => {
+                    value.classList.add('hovered');
+                    nodes[key].classList.add('hovered');
+                    tooltip.style.visibility = 'visible';
+                });
+                value.addEventListener('mouseout', () => {
+                    parents[key].classList.remove('hovered');
+                    nodes[key].classList.remove('hovered');
+                    tooltip.style.visibility = 'hidden';
+                });
+                nodes[key].addEventListener('mouseover', () => {
+                    value.classList.add('hovered');
+                    nodes[key].classList.add('hovered');
+                    tooltip.style.visibility = 'visible';
+                });
+                nodes[key].addEventListener('mouseout', () => {
+                    value.classList.remove('hovered');
+                    nodes[key].classList.remove('hovered');
+                    tooltip.style.visibility = 'hidden';
+                });
+            }
+        }, 350);
     }
 
     winMessage() {
         this.containers.table.innerHTML = '<h2>You did it!<br>HAPPY NEW YEAR</h2>';
-        document.querySelector('.snow').classList.add('show')
+        document.querySelector('.snow').classList.add('show');
     }
 
     nextLevel(lvlNumber) {
-        if (+lvlNumber < levels.length - 1)
-            lvlNumber = +lvlNumber + 1;
+        if (+lvlNumber < levels.length - 1) lvlNumber = +lvlNumber + 1;
         this.createLevel(lvlNumber);
         return lvlNumber;
     }
+    progressBar(lvlNumber) {
+        let i = (100 * lvlNumber) / levels.length;
+        if (i === 0)
+            i = 1;
+        let elem = this.containers.progressBar;
+        let width = i;
+        if (width >= 100)
+            i = 0;
+        else {
+            width += (100 / levels.length);
+            elem.style.width = width + "%";
+        }
 
+
+    }
     previousLevel(lvlNumber) {
         if (lvlNumber > 0) lvlNumber -= 1;
         this.createLevel(lvlNumber);
@@ -70,28 +147,28 @@ class Game {
     }
 
     createMenu() {
-        const menu = this.containers.menu;
+        const { menu } = this.containers;
         menu.innerHTML = '';
-        for (const [i, v] of levels.entries()) {
+        for (const [key, value] of levels.entries()) {
             const li = document.createElement('li');
             const icon = document.createElement('i');
+            // font-awesome classes
             icon.classList.add('fa');
             icon.classList.add('fa-check');
             li.appendChild(icon);
-            if (this.statistics[i]) icon.classList.add('helped')
-            else if (this.statistics[i] === false) icon.classList.add('done');
+            if (this.statistics[key]) icon.classList.add('helped');
+            else if (this.statistics[key] === false) icon.classList.add('done');
             li.classList.add('menu__item');
-            li.innerHTML += `${i + 1} - ${levels[i].syntax}`;
+            li.innerHTML += `${key + 1} - ${value.syntax}`;
             menu.appendChild(li);
         }
     }
 
     checkAnswer(lvlNumber) {
-        if (lvlNumber === this.nextLevel(lvlNumber)) {
+        if (lvlNumber === levels.length - 1) {
             this.winMessage();
             return lvlNumber;
         }
-
         const level = levels[lvlNumber];
         const answer = this.editor.getValue()
             .replace(/\s+/g, ' ')
@@ -120,13 +197,12 @@ class Game {
                 this.containers.menu.childNodes[lvlNumber]
                     .querySelector('.fa')
                     .classList.add('done');
-                this.addToStatistics(lvlNumber)
+                this.addToStatistics(lvlNumber);
             }
             lvlNumber = this.nextLevel(lvlNumber);
             cssInput.classList.add('correct');
             cssInput.addEventListener('transitionend', () => {
                 cssInput.classList.remove('correct');
-                this.editor.setValue('');
             });
         }
         return lvlNumber;
@@ -145,7 +221,7 @@ class Game {
         this.containers.menu.childNodes[lvlNumber]
             .querySelector('.fa')
             .classList.add('helped');
-        let isHelped = true;
+        const isHelped = true;
         this.addToStatistics(lvlNumber, isHelped);
 
         function typeWriter(speed = 100) {

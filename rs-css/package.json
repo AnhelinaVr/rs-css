@@ -43,6 +43,8 @@
     "dependencies": {
         "@babel/polyfill": "^7.10.4",
         "codemirror": "^5.58.3",
-        "highlight.js": "^10.4.1"
+        "highlight.js": "^10.4.1",
+        "highlightjs-line-numbers.js": "^2.8.0",
+        "prismjs": "^1.22.0"
     }
 }

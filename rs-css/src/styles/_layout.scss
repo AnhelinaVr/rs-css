@@ -46,19 +46,24 @@ main {
 
 .code {
     height: 50vh;
-    background-color: rgb(253, 255, 140);
+    background-image: url('../../assets/code_bg.jpg');
+    background-size: contain;
+    background-position-x: center;
+    background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
     align-items: center;
     h3 {
         text-align: center;
         flex-basis: 100%;
+        margin: 15px 0;
     }
 }
 
 .code-window {
     display: flex;
     flex-wrap: wrap;
+    font-size: 18px;
 }
 
 .css-editor,
@@ -69,11 +74,14 @@ main {
 }
 
 .answer {
-    flex-basis: 70%;
+    flex-basis: 65%;
+    background: #d2e8ff !important;
+    border: 2px solid black;
+    border-right: none;
 }
 
 .menu {
-    background-color: rgb(163, 237, 255);
+    background: linear-gradient(90deg, rgb(159 132 115) 0%, rgb(189 188 131) 38%, rgb(246 247 201) 100%);
     max-width: 350px;
     width: 100%;
     position: fixed;
@@ -134,6 +142,7 @@ main {
 
 hr {
     margin: 3px 0;
+    border: none;
     border-top: 2px dashed black;
 }
 
@@ -164,7 +173,7 @@ hr {
     height: 18px;
     width: 18px;
     position: absolute;
-    border: solid 2px white;
+    border: solid 2px #9f8573;
     border-width: 2px 2px 0 0;
     transform-origin: center center;
     transition: all 0.15s linear;

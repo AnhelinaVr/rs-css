@@ -117,7 +117,10 @@ main {
 
 .code {
   height: 50vh;
-  background-color: #fdff8c;
+  background-image: url("../../assets/code_bg.jpg");
+  background-size: contain;
+  background-position-x: center;
+  background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -125,11 +128,13 @@ main {
 .code h3 {
   text-align: center;
   flex-basis: 100%;
+  margin: 15px 0;
 }
 
 .code-window {
   display: flex;
   flex-wrap: wrap;
+  font-size: 18px;
 }
 
 .css-editor,
@@ -140,11 +145,14 @@ main {
 }
 
 .answer {
-  flex-basis: 70%;
+  flex-basis: 65%;
+  background: #d2e8ff !important;
+  border: 2px solid black;
+  border-right: none;
 }
 
 .menu {
-  background-color: #a3edff;
+  background: linear-gradient(90deg, #9f8473 0%, #bdbc83 38%, #f6f7c9 100%);
   max-width: 350px;
   width: 100%;
   position: fixed;
@@ -205,6 +213,7 @@ main {
 
 hr {
   margin: 3px 0;
+  border: none;
   border-top: 2px dashed black;
 }
 
@@ -233,7 +242,7 @@ hr {
   height: 18px;
   width: 18px;
   position: absolute;
-  border: solid 2px white;
+  border: solid 2px #9f8573;
   border-width: 2px 2px 0 0;
   transform-origin: center center;
   transition: all 0.15s linear;
@@ -321,15 +330,18 @@ tag::after {
   right: 15px;
   width: 30px;
   height: 26px;
-  cursor: pointer;
   z-index: 10;
+  cursor: pointer;
+}
+.menu__btn:hover > span, .menu__btn:hover > span::before, .menu__btn:hover > span::after {
+  box-shadow: black 0px 0px 2px;
 }
 .menu__btn > span, .menu__btn > span::before, .menu__btn > span::after {
   display: block;
   position: absolute;
   width: 100%;
   height: 2px;
-  background-color: #fff;
+  background-color: #9f8573;
 }
 .menu__btn > span::before {
   content: "";
@@ -352,7 +364,8 @@ tag::after {
   margin: 0;
   padding: 60px 20px;
   list-style: none;
-  background-color: #345;
+  background-image: url("../../assets/menu_bg.jpg");
+  background-size: cover;
   z-index: 9;
 }
 
@@ -365,10 +378,10 @@ tag::after {
 }
 .menu__item.active {
   color: #f4f4f4;
-  background-color: #fbb;
+  background-color: #82632e;
 }
 .menu__item:hover {
-  background-color: #f57a7a;
+  background-color: #5a5448;
 }
 
 #menu__toggle:checked ~ .menu__btn > span {
@@ -392,6 +405,8 @@ tag::after {
   border: 2px solid #575757;
   padding: 5px;
   background: white;
+  font-weight: 700;
+  text-shadow: 0px 0px 3px white, 0px 0px 5px white, 0px 0px 3px white, 0px 0px 5px white;
 }
 .button.reset-button {
   width: 70%;
@@ -402,10 +417,11 @@ tag::after {
 }
 .button.enter-button {
   min-width: 30px;
-  flex-basis: 15%;
+  flex-basis: 20%;
 }
 .button.enter-button:hover {
-  background-color: green;
+  background-image: url("../../assets/candyGreen.jpg");
+  background-size: cover;
   box-shadow: 0px 0px 10px 0px green;
 }
 .button.help-button {
@@ -413,8 +429,19 @@ tag::after {
   flex-basis: 15%;
 }
 .button.help-button:hover {
-  background-color: orange;
   box-shadow: 0px 0px 10px 0px red;
+  background-image: url("../../assets/candyRed.jpg");
+  background-size: cover;
+}
+
+.progress-bar {
+  width: 100%;
+  background-color: #ddd;
+}
+.progress-bar .progress {
+  width: 1%;
+  height: 5px;
+  background-color: #4CAF50;
 }
 
 i {
@@ -433,6 +460,7 @@ i.helped {
   display: flex;
   justify-content: center;
   align-items: flex-end;
+  z-index: -3;
 }
 .table .active {
   animation: pulsate 0.5s ease-in-out infinite both;
@@ -440,6 +468,36 @@ i.helped {
 .table h2 {
   color: white;
   text-align: center;
+}
+
+.tooltips {
+  position: relative;
+}
+
+.tooltiptext {
+  visibility: hidden;
+  width: 140px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -75px;
+}
+
+.tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
 }
 
 gift,
@@ -458,6 +516,17 @@ car:hover,
 phone:hover,
 bear:hover {
   cursor: pointer;
+}
+gift.hovered,
+bag.hovered,
+car.hovered,
+phone.hovered,
+bear.hovered {
+  filter: drop-shadow(2px 4px 6px black);
+}
+
+span.hovered {
+  background-color: #fffc5d;
 }
 
 .small {
@@ -480,13 +549,13 @@ gift.blue {
 gift#fancy {
   background-image: url("../../assets/giftRedOpenFancy.png");
 }
-gift#fancy[for=Mum] {
+gift#fancy[data-for=Mum] {
   background-image: url("../../assets/giftRedOpenFancyMum.png");
 }
-gift[for=Ann] {
+gift[data-for=Ann] {
   background-image: url("../../assets/giftBlueOpenAnn.png");
 }
-gift[for=Joe] {
+gift[data-for=Joe] {
   background-image: url("../../assets/giftRedOpenJoe.png");
 }
 gift car {

@@ -16,8 +16,13 @@
     right: 15px;
     width: 30px;
     height: 26px;
-    cursor: pointer;
     z-index: 10;
+    cursor: pointer;
+    &:hover>span,
+    &:hover>span::before,
+    &:hover>span::after {
+        box-shadow: black 0px 0px 2px;
+    }
     &>span,
     &>span::before,
     &>span::after {
@@ -25,7 +30,7 @@
         position: absolute;
         width: 100%;
         height: 2px;
-        background-color: #fff;
+        background-color: #9f8573;
     }
     &>span::before {
         content: "";
@@ -49,7 +54,8 @@
     margin: 0;
     padding: 60px 20px;
     list-style: none;
-    background-color: #345;
+    background-image: url('../../assets/menu_bg.jpg');
+    background-size: cover;
     z-index: 9;
 }
 
@@ -61,10 +67,10 @@
     line-height: 160%;
     &.active {
         color: #f4f4f4;
-        background-color: #fbb;
+        background-color: #82632e;
     }
     &:hover {
-        background-color: rgb(245, 122, 122);
+        background-color: #5a5448;
     }
 }
 
@@ -89,6 +95,8 @@
     border: 2px solid rgb(87, 87, 87);
     padding: 5px;
     background: rgb(255, 255, 255);
+    font-weight: 700;
+    text-shadow: 0px 0px 3px white, 0px 0px 5px white, 0px 0px 3px white, 0px 0px 5px white;
     &.reset-button {
         width: 70%;
         &:hover {
@@ -98,9 +106,10 @@
     }
     &.enter-button {
         min-width: 30px;
-        flex-basis: 15%;
+        flex-basis: 20%;
         &:hover {
-            background-color: green;
+            background-image: url('../../assets/candyGreen.jpg');
+            background-size: cover;
             box-shadow: 0px 0px 10px 0px green;
         }
     }
@@ -108,9 +117,21 @@
         min-width: 30px;
         flex-basis: 15%;
         &:hover {
-            background-color: orange;
             box-shadow: 0px 0px 10px 0px red;
+            background-image: url('../../assets/candyRed.jpg');
+            background-size: cover;
         }
+    }
+}
+
+.progress-bar {
+    width: 100%;
+    background-color: #ddd;
+    margin: 5px 0 0;
+    .progress {
+        width: 1%;
+        height: 5px;
+        background-color: #11a716;
     }
 }
 
@@ -131,6 +152,7 @@ i {
     display: flex;
     justify-content: center;
     align-items: flex-end;
+    z-index: -3;
     .active {
         animation: pulsate 0.5s ease-in-out infinite both;
     }
@@ -138,6 +160,36 @@ i {
         color: white;
         text-align: center;
     }
+}
+
+.tooltips {
+    position: relative;
+}
+
+.tooltiptext {
+    visibility: hidden;
+    width: 140px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 150%;
+    left: 50%;
+    margin-left: -75px;
+}
+
+.tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
 }
 
 gift,
@@ -152,6 +204,13 @@ bear {
     &:hover {
         cursor: pointer;
     }
+    &.hovered {
+        filter: drop-shadow(2px 4px 6px black);
+    }
+}
+
+span.hovered {
+    background-color: rgb(255, 252, 93);
 }
 
 .small {
@@ -173,13 +232,13 @@ gift {
     &#fancy {
         background-image: url('../../assets/giftRedOpenFancy.png');
     }
-    &#fancy[for="Mum"] {
+    &#fancy[data-for="Mum"] {
         background-image: url('../../assets/giftRedOpenFancyMum.png');
     }
-    &[for="Ann"] {
+    &[data-for="Ann"] {
         background-image: url('../../assets/giftBlueOpenAnn.png');
     }
-    &[for="Joe"] {
+    &[data-for="Joe"] {
         background-image: url('../../assets/giftRedOpenJoe.png');
     }
     car {

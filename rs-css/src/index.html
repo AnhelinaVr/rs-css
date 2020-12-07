@@ -7,11 +7,6 @@
     <title>RS CSS</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.9/styles/default.min.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.9/highlight.min.js"></script>
-
-    <script>
-        hljs.initHighlightingOnLoad();
-    </script>
 </head>
 
 <body>
@@ -32,6 +27,10 @@
                 </ul>
             </div>
         </div>
+        <div class="progress-bar">
+            <div class="progress">
+            </div>
+        </div>
         <div class="display-help">
             <h3 class="level-title"></h3>
             <h2 class="comment"></h2>
@@ -48,6 +47,7 @@
     <main>
         <section class="game">
             <h2 class="do-this"></h2>
+            <div class="tooltips"></div>
             <div class="table"></div>
         </section>
 
@@ -61,12 +61,12 @@
             <div class="html-view">
                 <h3 class="code-header">HTML Viewer</h3>
                 <div class="code-window">
-                    <div class="line-numbers"></div>
                     <pre><code class="markup html"></code></pre>
                 </div>
             </div>
         </section>
     </main>
+
 </body>
 
 </html>
