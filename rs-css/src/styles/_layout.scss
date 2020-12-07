@@ -74,9 +74,10 @@ main {
 
 .answer {
     flex-basis: 65%;
-    background: #d2e8ff !important;
+    background: #e2f0ff !important;
     border: 2px solid black;
     border-right: none;
+    overflow: hidden !important;
 }
 
 .menu {
