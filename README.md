@@ -1,7 +1,7 @@
-Task: https://github.com/rolling-scopes-school/tasks/blob/master/tasks/rs-css.md
-Screenshot: https://prnt.sc/vxtfux
-Deploy: https://anhelinavr-rs-css.netlify.app/
-Сompleted requirements:
+### Task: https://github.com/rolling-scopes-school/tasks/blob/master/tasks/rs-css.md
+### Screenshot: https://prnt.sc/vxtfux
+### Deploy: https://anhelinavr-rs-css.netlify.app/
+### Сompleted requirements:
 
 - Basic scope +70
 
